@@ -1,0 +1,31 @@
+{
+  "realm": "watchtower",
+  "enabled": true,
+  "displayName": "Watchtower local identity broker",
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "clients": [
+    {
+      "clientId": "watchtower-web",
+      "name": "Watchtower Web",
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "local-dev-secret",
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "redirectUris": ["http://localhost:3000/api/auth/callback/enterprise-sso"],
+      "webOrigins": ["http://localhost:3000"],
+      "protocol": "openid-connect",
+      "defaultClientScopes": ["web-origins", "acr", "roles", "profile", "email", "groups"]
+    }
+  ],
+  "groups": [
+    { "name": "watchtower-owners" },
+    { "name": "watchtower-admins" },
+    { "name": "pmo-leads" },
+    { "name": "project-managers" },
+    { "name": "watchtower-contributors" },
+    { "name": "watchtower-viewers" },
+    { "name": "internal-audit" }
+  ]
+}

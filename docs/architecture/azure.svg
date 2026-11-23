@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="820" viewBox="0 0 1440 820" role="img" aria-labelledby="title desc">
+  <title id="title">Watchtower Azure architecture</title>
+  <desc id="desc">Managed server application, enterprise identity, PostgreSQL, queue, object storage, and grounded AI.</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#111937"/><stop offset="1" stop-color="#23265b"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+  <rect width="1440" height="820" rx="36" fill="#f6f0e5"/>
+  <rect x="28" y="28" width="1384" height="764" rx="28" fill="url(#bg)"/>
+  <circle cx="1260" cy="120" r="150" fill="#9cff1e" opacity=".09"/><circle cx="170" cy="720" r="190" fill="#8c5bff" opacity=".11"/>
+  <text x="88" y="112" fill="#9cff1e" font-family="Arial,sans-serif" font-size="22" font-weight="700" letter-spacing="5">CONSEILTEK · Azure</text>
+  <text x="88" y="174" fill="#fff" font-family="Arial,sans-serif" font-size="48" font-weight="700">Watchtower</text>
+  <text x="88" y="216" fill="#cbd0e1" font-family="Arial,sans-serif" font-size="22">Metrics, logs and traces on OpenTelemetry, in your account.</text>
+  <g><rect x="82" y="310" width="240" height="126" rx="20" fill="#fff" opacity=".96"/><rect x="83" y="311" width="6" height="124" rx="3" fill="#9cff1e"/><text x="110" y="358" fill="#151a38" font-family="Arial,sans-serif" font-size="21" font-weight="700">Enterprise identity</text><text x="110" y="392" fill="#545a76" font-family="Arial,sans-serif" font-size="15">OIDC · SAML broker</text></g>
+  <g stroke="#9cff1e" stroke-width="4" fill="none" filter="url(#glow)"><path d="M 322 373 L 418 373"/><path d="M 404 365 L 418 373 L 404 381"/></g>
+  <g><rect x="418" y="290" width="270" height="166" rx="20" fill="#fff" opacity=".96"/><rect x="419" y="291" width="6" height="164" rx="3" fill="#9cff1e"/><text x="446" y="338" fill="#151a38" font-family="Arial,sans-serif" font-size="21" font-weight="700">App Service</text><text x="446" y="372" fill="#545a76" font-family="Arial,sans-serif" font-size="15">Server-side auth · RBAC</text></g>
+  <g stroke="#9cff1e" stroke-width="4" fill="none" filter="url(#glow)"><path d="M 688 373 L 790 373"/><path d="M 776 365 L 790 373 L 776 381"/></g>
+  <g><rect x="790" y="290" width="270" height="166" rx="20" fill="#fff" opacity=".96"/><rect x="791" y="291" width="6" height="164" rx="3" fill="#9cff1e"/><text x="818" y="338" fill="#151a38" font-family="Arial,sans-serif" font-size="21" font-weight="700">PostgreSQL Flexible</text><text x="818" y="372" fill="#545a76" font-family="Arial,sans-serif" font-size="15">Private · encrypted · PITR</text></g>
+  <g stroke="#9cff1e" stroke-width="4" fill="none" filter="url(#glow)"><path d="M 1060 373 L 1156 373"/><path d="M 1142 365 L 1156 373 L 1142 381"/></g>
+  <g><rect x="1156" y="310" width="202" height="126" rx="20" fill="#fff" opacity=".96"/><rect x="1157" y="311" width="6" height="124" rx="3" fill="#9cff1e"/><text x="1184" y="358" fill="#151a38" font-family="Arial,sans-serif" font-size="21" font-weight="700">Grounded Q&amp;A</text><text x="1184" y="392" fill="#545a76" font-family="Arial,sans-serif" font-size="15">Citations · no mutation</text></g>
+  <g><rect x="418" y="560" width="270" height="118" rx="20" fill="#fff" opacity=".96"/><rect x="419" y="561" width="6" height="116" rx="3" fill="#9cff1e"/><text x="446" y="608" fill="#151a38" font-family="Arial,sans-serif" font-size="21" font-weight="700">Managed services</text><text x="446" y="642" fill="#545a76" font-family="Arial,sans-serif" font-size="15">Blob · Queue · Redis · Key Vault</text></g>
+  <g stroke="#9cff1e" stroke-width="4" fill="none" filter="url(#glow)"><path d="M 553 560 L 553 470"/><path d="M 545 484 L 553 470 L 561 484"/></g>
+  <g><rect x="790" y="560" width="270" height="118" rx="20" fill="#fff" opacity=".96"/><rect x="791" y="561" width="6" height="116" rx="3" fill="#9cff1e"/><text x="818" y="608" fill="#151a38" font-family="Arial,sans-serif" font-size="21" font-weight="700">Operations</text><text x="818" y="642" fill="#545a76" font-family="Arial,sans-serif" font-size="15">Monitor · audit · backups</text></g>
+  <g stroke="#9cff1e" stroke-width="4" fill="none" filter="url(#glow)"><path d="M 925 560 L 925 470"/><path d="M 917 484 L 925 470 L 933 484"/></g>
+  <text x="88" y="744" fill="#cbd0e1" font-family="Arial,sans-serif" font-size="18">One repository · AWS and Azure · Apache-2.0 · support@conseiltek.com</text>
+  </svg>

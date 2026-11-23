@@ -1,0 +1,95 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Application quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      NEXTAUTH_SECRET: ci-only-secret-with-at-least-thirty-two-characters
+      AUTH_DEMO_MODE: "true"
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm build
+
+  database:
+    name: PostgreSQL migration
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: watchtower
+          POSTGRES_PASSWORD: watchtower-ci-password
+          POSTGRES_DB: watchtower
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U watchtower"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v7
+      - run: psql 'postgresql://watchtower:watchtower-ci-password@localhost:5432/watchtower' -v ON_ERROR_STOP=1 -f db/migrations/0001_init.sql
+      - run: psql 'postgresql://watchtower:watchtower-ci-password@localhost:5432/watchtower' -v ON_ERROR_STOP=1 -f db/seed.sql
+      - run: test "$(psql 'postgresql://watchtower:watchtower-ci-password@localhost:5432/watchtower' -Atc 'select count(*) from alert_rule')" -ge 2
+
+  infrastructure:
+    name: Infrastructure validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: 1.16.1
+      - run: terraform -chdir=infra/aws fmt -check -recursive
+      - run: terraform -chdir=infra/aws init -backend=false
+      - run: terraform -chdir=infra/aws validate
+      - name: Install Bicep
+        run: |
+          curl --fail --silent --show-error --location \
+            --output "$RUNNER_TEMP/bicep" \
+            https://github.com/Azure/bicep/releases/download/v0.46.1/bicep-linux-x64
+          chmod +x "$RUNNER_TEMP/bicep"
+          echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
+      - run: bicep build infra/azure/main.bicep --stdout > /dev/null
+
+  container:
+    name: Container build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: docker/setup-buildx-action@v4
+      - uses: docker/build-push-action@v7
+        with:
+          context: .
+          push: false
+          tags: watchtower:ci
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
